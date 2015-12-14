@@ -31,5 +31,9 @@
         <file>models/monsterfrog.obj</file>
         <file>models/torii.obj</file>
         <file>models/venus.obj</file>
+        <file>models/cs_assault.obj</file>
+        <file>models/klein.obj</file>
+        <file>models/mannequin.obj</file>
+        <file>models/pipes.obj</file>
     </qresource>
 </RCC>

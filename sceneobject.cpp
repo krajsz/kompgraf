@@ -24,6 +24,8 @@ SceneObject::SceneObject(const QString &fileName, QObject *parent) : QObject(par
         qDebug() <<"Normals count: " << getNormalsCount();
         qDebug() <<"Vertex indices count: " << getVerticesIndicesSize();
         qDebug() <<"Normal indices count: " << getNormalsIndicesSize();
+        qDebug() <<"Faces count: " << getFacesCount();
+        qDebug() <<"Edges count: " << getEdgesCount();
     }
 }
 
@@ -40,6 +42,16 @@ void SceneObject::subdivision(const int &iterations)
 
 }
 
+const int SceneObject::getFacesCount()
+{
+    return datas.getFaces().size();
+}
+
+const int SceneObject::getEdgesCount()
+{
+    return datas.getEdges().size();
+}
+
 void SceneObject::reload(const QString &fileName)
 {
     datas = loader->load(fileName);
@@ -51,6 +63,8 @@ void SceneObject::reload(const QString &fileName)
         qDebug() <<"Normals count: " << getNormalsCount();
         qDebug() <<"Vertex indices count: " << getVerticesIndicesSize();
         qDebug() <<"Normal indices count: " << getNormalsIndicesSize();
+        qDebug() <<"Faces count: " << getFacesCount();
+        qDebug() <<"Edges count: " << getEdgesCount();
     }
 }
 

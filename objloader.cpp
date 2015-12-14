@@ -10,8 +10,6 @@ ModelData  ObjLoader::load(const QString& fileName)
     QFile input(fileName);
     ModelData data;
 
-    bool bad_size = false;
-
     if (!input.open(QFile::ReadOnly))
     {
         qDebug() << "Opening " << fileName << " failed!";
@@ -23,6 +21,9 @@ ModelData  ObjLoader::load(const QString& fileName)
         QList<QVector3D> normals;
         QList<unsigned int> verticesIndices;
         QList<unsigned int> normalsIndices;
+
+        QList<Face> faces;
+        QList<Edge> edges;
 
         QList<QVector3D> tmpVertices;
         QList<QVector3D> tmpNormals;
@@ -118,34 +119,55 @@ ModelData  ObjLoader::load(const QString& fileName)
         if (stream.atEnd())
         {
             emit loaded(true);
-            /* if (bad_size)
+
+            float_t maxX = std::numeric_limits<float_t>::min();
+            float_t maxY = std::numeric_limits<float_t>::min();
+            float_t maxZ = std::numeric_limits<float_t>::min();
+
+            float_t minX = std::numeric_limits<float_t>::max();
+            float_t minY = std::numeric_limits<float_t>::max();
+            float_t minZ = std::numeric_limits<float_t>::max();
+
+            for (int i = 0; i < tmpVertices.size(); ++i)
             {
-                float_t maxX = -1;
-                float_t maxY = -1;
-                float_t maxZ = -1;
-                for (int i =0; i < tmpVertices.size(); ++i)
+                if (tmpVertices[i].x() > maxX)
                 {
-                    if (tmpVertices[i].x() > maxX)
-                    {
-                        maxX = tmpVertices[i].x();
-                    }
-                    if (tmpVertices[i].y() > maxY)
-                    {
-                        maxY = tmpVertices[i].y();
-                    }
-                    if (tmpVertices[i].z() > maxZ)
-                    {
-                        maxZ = tmpVertices[i].z();
-                    }
+                    maxX = tmpVertices[i].x();
+                }
+                if (tmpVertices[i].y() > maxY)
+                {
+                    maxY = tmpVertices[i].y();
+                }
+                if (tmpVertices[i].z() > maxZ)
+                {
+                    maxZ = tmpVertices[i].z();
                 }
 
-                for (int i = 0; i < tmpVertices.size(); ++i)
+                if (tmpVertices[i].x() < minX)
                 {
-                    tmpVertices[i].setX( tmpVertices[i].x() / maxX);
-                    tmpVertices[i].setY( tmpVertices[i].y() / maxY);
-                    tmpVertices[i].setZ( tmpVertices[i].z() / maxZ);
+                    minX = tmpVertices[i].x();
                 }
-            }*/
+                if (tmpVertices[i].y() < minY)
+                {
+                    minY= tmpVertices[i].y();
+                }
+                if (tmpVertices[i].z() < minZ)
+                {
+                    minZ = tmpVertices[i].z();
+                }
+            }
+
+            qDebug() << "X: " << maxX << " "<< minX;
+            qDebug() << "Y: " << maxY << " "<< minY;
+            qDebug() << "Z: " << maxZ << " "<< minZ;
+
+            QVector3D bbox ( maxX - minX, maxY - minY, maxZ - minZ);
+
+            qDebug() <<"box: " << bbox;
+            for (int i = 0; i < tmpVertices.size(); ++i)
+            {
+                tmpVertices[i]/=bbox;
+            }
 
             qDebug() << tmpVertices.size();
 
@@ -163,17 +185,37 @@ ModelData  ObjLoader::load(const QString& fileName)
             }
             else
             {
-                for (int i = 0; i < vertices.size() - 3; i+=3)
+                for (int i = 0; i < vertices.size(); i+=3)
                 {
                     normals.push_back(QVector3D(QVector3D::normal(vertices[i], vertices[i+1], vertices[i+2])));
                     normals.push_back(QVector3D(QVector3D::normal(vertices[i], vertices[i+1], vertices[i+2])));
                     normals.push_back(QVector3D(QVector3D::normal(vertices[i], vertices[i+1], vertices[i+2])));
                 }
             }
+
+            Face face;
+            Edge firstEdge;
+            Edge secondEdge;
+            Edge thirdEdge;
+            for (int i = 0; i < vertices.size(); i+=3)
+            {
+                firstEdge = Edge(vertices[i], vertices[i+1]);
+                secondEdge = Edge(vertices[i+1], vertices[i+2]);
+                thirdEdge = Edge(vertices[i+2], vertices[i]);
+
+                edges.push_back(firstEdge);
+                edges.push_back(secondEdge);
+                edges.push_back(thirdEdge);
+
+                face = Face(firstEdge, secondEdge, thirdEdge);
+                faces.push_back(face);
+            }
             data.setNormals(normals);
             data.setNormalIndices(normalsIndices);
             data.setVertices(vertices);
             data.setVertexIndices(verticesIndices);
+            data.setFaces(faces);
+            data.setEdges(edges);
         }
         else
         {

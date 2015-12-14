@@ -12,7 +12,7 @@ void LeapHandler::processFrame(const Leap::Frame &frame)
 
     framecounter++;
 
-    if (framecounter == 300)
+    if (framecounter == 200)
     {
         framecounter = 0;
 
@@ -40,8 +40,6 @@ void LeapHandler::processFrame(const Leap::Frame &frame)
         qDebug() << "Rotated! " << rotationVector.x << " " << rotationVector.y << " " << rotationVector.z;
         emit emitHandRotation(rotationVector);
     }
-
-
 
     if (finger.type() == Leap::Finger::TYPE_INDEX)
     {

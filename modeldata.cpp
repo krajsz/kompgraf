@@ -10,6 +10,9 @@ ModelData& ModelData::operator =(const ModelData& other)
     this->vertices = other.vertices;
     this->normalIndices = other.normalIndices;
     this->vertexIndices = other.vertexIndices;
+    this->faces = other.faces;
+    this->edges = other.edges;
+
     return *this;
 }
 
@@ -36,6 +39,26 @@ QList<QVector3D>& ModelData::getNormals()
 QList<QVector3D>& ModelData::getVertices()
 {
     return this->vertices;
+}
+
+void ModelData::setFaces(const QList<Face> &faces)
+{
+    this->faces = faces;
+}
+
+void ModelData::setEdges(const QList<Edge> &edges)
+{
+    this->edges = edges;
+}
+
+QList<Face>& ModelData::getFaces()
+{
+    return faces;
+}
+
+QList<Edge>& ModelData::getEdges()
+{
+    return edges;
 }
 
 void ModelData::setNormalIndices(const QList<unsigned int> &normalIndices)

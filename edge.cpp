@@ -1,20 +1,33 @@
 #include "edge.h"
 
-Edge::Edge():firstPoint(0,0,0), secondPoint(0,0,0)
+Edge::Edge():firstVertex(0,0,0), secondVertex(0,0,0)
 {
 }
 
-Edge::Edge(const QVector3D &firstPoint, const QVector3D &secondPoint): firstPoint(firstPoint), secondPoint(secondPoint)
+Edge::Edge(const QVector3D &firstVertex, const QVector3D &secondVertex): firstVertex(firstVertex), secondVertex(secondVertex)
 {
 }
 
 Edge& Edge::operator =(const Edge& otherEdge)
 {
-    firstPoint = otherEdge.firstPoint;
-    secondPoint = otherEdge.secondPoint;
+    firstVertex = otherEdge.firstVertex;
+    secondVertex = otherEdge.secondVertex;
     return *this;
 }
-bool Edge::operator ==(const Edge& other)
+
+bool operator==(const Edge& e, const Edge& e1)
 {
-    return (other.firstPoint == firstPoint) && (other.secondPoint == secondPoint);
+    return true;
+    return std::tie(e.getFirstVertex(), e.getSecondVertex()) == std::tie(e1.getFirstVertex() ,e1.getSecondVertex());
 }
+
+const QVector3D& Edge::getFirstVertex() const
+{
+    return this->firstVertex;
+}
+
+const QVector3D& Edge::getSecondVertex() const
+{
+    return this->secondVertex;
+}
+

@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QVector3D>
+#include "face.h"
 
 class ModelData
 {
@@ -14,6 +15,8 @@ public:
     QList<QVector3D>& getNormals() ;
     QList<unsigned int>& getVertexIndices();
     QList<unsigned int>& getNormalIndices() ;
+    QList<Face>& getFaces();
+    QList<Edge>& getEdges();
 
     bool hasData() const;
 
@@ -21,8 +24,12 @@ public:
     void setNormals(const QList<QVector3D>& normals);
     void setVertexIndices(const QList<unsigned int>& vertexIndices);
     void setNormalIndices(const QList<unsigned int>& normalIndices);
+    void setFaces(const QList<Face>& faces);
+    void setEdges(const QList<Edge>& edges);
 
 private:
+    QList<Face> faces;
+    QList<Edge> edges;
 
     QList<QVector3D> vertices;
     QList<QVector3D> normals;

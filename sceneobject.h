@@ -3,6 +3,7 @@
 
 #include "objloader.h"
 #include "Utils.h"
+#include "face.h"
 
 #include <QObject>
 #include <QString>
@@ -26,6 +27,8 @@ public:
     const int getNormalsCount() ;
     const int getVerticesIndicesSize() ;
     const int getNormalsIndicesSize() ;
+    const int getFacesCount();
+    const int getEdgesCount();
 
     bool isLoaded() const;
 

@@ -12,7 +12,7 @@ void main(void)
     vec4 darker = vec4(0.1, 0.1, 0.1, 0.0);
     vec4 brighter = vec4(0.9, 0.9, 0.9, 0.0);
 
-    FragColor = darker;
+    FragColor = darker ;
 
     if (cosine > 0.0)
     {

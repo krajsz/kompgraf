@@ -20,8 +20,9 @@ Canvas::Canvas(QWidget *parent) : QOpenGLWidget( parent),
     // suzanne = new SceneObject(":/models/models/Butterfly1.obj");
     // suzanne = new SceneObject(":/models/models/stalker_cs_rukzak_3.obj");
     //suzanne = new SceneObject(":/models/models/Porsche_911_GT2.obj");
-
-    suzanne = new SceneObject(":/models/models/icosa.obj");
+/*:/models/models/cs_assault.obj
+ * */
+    suzanne = new SceneObject(":/models/models/teapot.obj");
 
     subdivisionCurve->calculate(controlPoints, 3/4.0);
 
@@ -1067,7 +1068,7 @@ void Canvas::setSubdivisionCurveIterationsCount(int value)
 void Canvas::resizeGL(int w, int h)
 {
     mProjectionMatrix.setToIdentity();
-    mProjectionMatrix.ortho(0, w, h, 0, 1000, -1000);
+    mProjectionMatrix.ortho(0, w, h, 0, 155, -155 );
 }
 
 void Canvas::setFlatShading(bool shading)

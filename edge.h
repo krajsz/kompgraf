@@ -2,22 +2,23 @@
 #define EDGE_H
 
 #include <QVector3D>
+#include <tuple>
 
 class Edge
 {
 public:
     Edge();
-    Edge(const QVector3D& firstPoint, const QVector3D& secondPoint);
+    Edge(const QVector3D& firstVertex, const QVector3D& secondVertex);
     Edge& operator =(const Edge& otherEdge);
+    const QVector3D& getFirstVertex() const;
+    const QVector3D& getSecondVertex() const;
 
-    bool operator ==(const Edge& other);
 
 private:
-    QVector3D firstPoint;
-    QVector3D secondPoint;
-
-
+    QVector3D firstVertex;
+    QVector3D secondVertex;
 
 };
+bool operator==(const Edge& other, const Edge& o);
 
 #endif // EDGE_H
