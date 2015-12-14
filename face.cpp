@@ -4,28 +4,28 @@ Face::Face()
 {
 }
 
-Face::Face(const Edge &firstEdge, const Edge &secondEdge, const Edge &thirdEdge): firstEdge(firstEdge),
-                                                                                  secondEdge(secondEdge),
-                                                                                  thirdEdge(thirdEdge)
+Face::Face(const QVector3D &v1, const QVector3D &v2, const QVector3D &v3): firstVertex(v1),
+                                                                                  secondVertex(v2),
+                                                                                  thirdVertex(v3)
 {
 }
 Face& Face::operator =(const Face& other)
 {
-    firstEdge = other.firstEdge;
-    secondEdge = other.secondEdge;
-    thirdEdge = other.thirdEdge;
+    firstVertex = other.firstVertex;
+    secondVertex = other.secondVertex;
+    thirdVertex = other.thirdVertex;
     return *this;
 }
 
-bool Face::containsEdge(const Edge &edge)
+bool Face::containsVertex(const QVector3D &edge)
 {
-    return (edge == getFirstEdge()) || (edge == getSecondEdge()) || (edge == getThirdEdge());
+    return (edge == getFirstVertex()) || (edge == getSecondVertex()) || (edge == getThirdVertex());
 }
 
 bool operator ==(const Face& f, const Face& f1)
 {
-    return std::tie(f.getFirstEdge(), f.getSecondEdge(), f.getThirdEdge())
-            == std::tie(f1.getFirstEdge(), f1.getSecondEdge(), f1.getThirdEdge());
+    return std::tie(f.getFirstVertex(), f.getSecondVertex(), f.getThirdVertex())
+            == std::tie(f1.getFirstVertex(), f1.getSecondVertex(), f1.getThirdVertex());
 }
 
 bool operator !=(const Face& f, const Face& f1)
@@ -33,20 +33,29 @@ bool operator !=(const Face& f, const Face& f1)
     return !(f == f1);
 }
 
-const Edge& Face::getFirstEdge() const
+const QList<QVector3D>& Face::getVertices()
 {
-    return firstEdge;
+    return  QList<QVector3D> () << firstVertex << secondVertex << thirdVertex;
 }
 
-const Edge& Face::getSecondEdge() const
+const QVector3D& Face::getFirstVertex() const
 {
-    return secondEdge;
+    return firstVertex;
 }
 
-const Edge& Face::getThirdEdge() const
+const QVector3D& Face::getSecondVertex() const
 {
-    return thirdEdge;
+    return secondVertex;
 }
 
+const QVector3D& Face::getThirdVertex() const
+{
+    return thirdVertex;
+}
+
+void Face::setSubdivided(bool subdivided)
+{
+    this->subdivided = subdivided;
+}
 
 

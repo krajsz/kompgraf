@@ -33,6 +33,7 @@ void SceneObject::destroyVao()
 {
     if (vao.isCreated())
     {
+        qDebug() << "vao destroyed!";
         vao.destroy();
     }
 }
@@ -40,6 +41,16 @@ void SceneObject::destroyVao()
 void SceneObject::subdivision(const int &iterations)
 {
 
+    for (int iteration = 0; iteration < iterations; ++iteration)
+    {
+        QList<Face> tmpFaces;
+        QListIterator<Face> it(datas.getFaces());
+
+        while (it.hasNext())
+        {
+
+        }
+    }
 }
 
 const int SceneObject::getFacesCount()
@@ -172,9 +183,9 @@ void SceneObject::bindVao()
     vao.bind();
 }
 
-void SceneObject::createVao()
+bool SceneObject::createVao()
 {
-    vao.create();
+    return vao.create();
 }
 
 void SceneObject::releaseVao()

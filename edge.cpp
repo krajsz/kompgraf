@@ -18,7 +18,8 @@ Edge& Edge::operator =(const Edge& otherEdge)
 bool operator==(const Edge& e, const Edge& e1)
 {
     return true;
-    return std::tie(e.getFirstVertex(), e.getSecondVertex()) == std::tie(e1.getFirstVertex() ,e1.getSecondVertex());
+    return std::tie(e.getFirstVertex(), e.getSecondVertex())
+            == std::tie(e1.getFirstVertex() ,e1.getSecondVertex());
 }
 
 const QVector3D& Edge::getFirstVertex() const
@@ -31,3 +32,22 @@ const QVector3D& Edge::getSecondVertex() const
     return this->secondVertex;
 }
 
+void Edge::setFirstFace(const Face &face)
+{
+    firstFace = face;
+}
+
+void Edge::setSecondFace(const Face &face)
+{
+    secondFace = face;
+}
+
+const Face& Edge::getFirstFace() const
+{
+    return firstFace;
+}
+
+const Face& Edge::getSecondFace() const
+{
+    return secondFace;
+}

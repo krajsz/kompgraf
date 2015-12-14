@@ -22,7 +22,7 @@ Canvas::Canvas(QWidget *parent) : QOpenGLWidget( parent),
     //suzanne = new SceneObject(":/models/models/Porsche_911_GT2.obj");
 /*:/models/models/cs_assault.obj
  * */
-    suzanne = new SceneObject(":/models/models/teapot.obj");
+    suzanne = new SceneObject(":/models/models/icosa.obj");
 
     subdivisionCurve->calculate(controlPoints, 3/4.0);
 
@@ -362,26 +362,38 @@ QOpenGLShader* Canvas::instantiateShader(QOpenGLShader *shader, const QString &f
 void Canvas::reinitialiseModel()
 {
     //suzanne
+
     suzanne->destroyVao();
-    suzanne->createVao();
-    suzanne->bindVao();
+    if (! suzanne->createVao())
+    {
+        qDebug() << "Failed to create vao";
+    }
+    else
+    {
+        qDebug() << "vao created!";
 
-    mNormalBuffer.create();
-    mNormalBuffer.bind();
-    mNormalBuffer.allocate(( suzanne->getVerticesCount() + suzanne->getNormalsCount()) * sizeof(QVector3D));
+        suzanne->bindVao();
 
-    mShaderProgram->enableAttributeArray(0);
-    mNormalBuffer.write(0, suzanne->getVertices(), suzanne->getVerticesCount() * sizeof(QVector3D));
-    mShaderProgram->setAttributeBuffer(0, GL_FLOAT, 0, 3, 0);
+        mNormalBuffer.create();
+        mNormalBuffer.bind();
+        mNormalBuffer.allocate(( suzanne->getVerticesCount() + suzanne->getNormalsCount()) * sizeof(QVector3D));
 
-    mShaderProgram->enableAttributeArray(1);
-    mNormalBuffer.write(suzanne->getVerticesCount() * sizeof(QVector3D),
-                        suzanne->getNormals()  ,
-                        suzanne->getNormalsCount() * sizeof(QVector3D));
-    mShaderProgram->setAttributeBuffer(1, GL_FLOAT, suzanne->getVerticesCount() * sizeof(QVector3D), 3, 0);
+        mShaderProgram->enableAttributeArray(0);
+        mNormalBuffer.write(0, suzanne->getVertices(), suzanne->getVerticesCount() * sizeof(QVector3D));
+        mShaderProgram->setAttributeBuffer(0, GL_FLOAT, 0, 3, 0);
+        mShaderProgram->disableAttributeArray(0);
 
-    suzanne->releaseVao();
-    mNormalBuffer.destroy();
+        mShaderProgram->enableAttributeArray(1);
+        mNormalBuffer.write(suzanne->getVerticesCount() * sizeof(QVector3D),
+                            suzanne->getNormals()  ,
+                            suzanne->getNormalsCount() * sizeof(QVector3D));
+        mShaderProgram->setAttributeBuffer(1, GL_FLOAT, suzanne->getVerticesCount() * sizeof(QVector3D), 3, 0);
+        mShaderProgram->disableAttributeArray(1);
+
+        suzanne->releaseVao();
+        mNormalBuffer.destroy();
+
+    }
 
     /*mIndexBuffer.create();
     mIndexBuffer.bind();

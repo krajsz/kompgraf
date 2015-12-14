@@ -49,7 +49,7 @@ public:
 
     void subdivision(const int& iterations);
 
-    void createVao();
+    bool createVao();
     void bindVao();
     void destroyVao();
     void releaseVao();

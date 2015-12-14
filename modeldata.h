@@ -3,7 +3,7 @@
 
 #include <QList>
 #include <QVector3D>
-#include "face.h"
+#include "edge.h"
 
 class ModelData
 {

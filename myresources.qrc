@@ -35,5 +35,6 @@
         <file>models/klein.obj</file>
         <file>models/mannequin.obj</file>
         <file>models/pipes.obj</file>
+        <file>models/Bottle.obj</file>
     </qresource>
 </RCC>

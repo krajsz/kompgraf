@@ -88,9 +88,9 @@ ModelData  ObjLoader::load(const QString& fileName)
                         verticesIndices.push_back(lineList[3].toInt()-1);
                     }
                 }
-                else
+                else if (lineList.size() > 4)
                 {
-                    if (lineList[2].contains('/'))
+                    if (lineList[2].contains('/') && lineList[1] == "") // f  1/..
                     {
                         for (int i = 0; i < lineList.size(); ++i)
                         {
@@ -104,6 +104,44 @@ ModelData  ObjLoader::load(const QString& fileName)
                             {
                                 verticesIndices.push_back(lineListList[0].toInt()-1);
                             }
+                        }
+                    }
+                    else if (lineList[1].contains('/')) // f 1/..
+                    {
+                        if (lineList.size() == 5)
+                        {
+                            QList<int> tmpidxs;
+                            qDebug() << "LineList size: " << lineList.size();
+                            for (int i = 0; i < lineList.size(); ++i)
+                            {
+                                QStringList lineListList = lineList[i].split("/");
+                                if (lineListList.size() == 3 )
+                                {
+                                    normalsIndices.push_back(lineListList[2].toInt()-1);
+                                    //verticesIndices.push_back(lineListList[0].toInt()-1);
+                                  //  qDebug() << "Pushing, v/vt/vn";
+
+                                    tmpidxs.push_back(lineListList[0].toInt()-1);
+                                }
+                                else if (lineListList.size() == 2)
+                                {
+                                    //  verticesIndices.push_back(lineListList[0].toInt()-1);
+                                 //   qDebug() << "Pushing, v/vt";
+                                    tmpidxs.push_back(lineListList[0].toInt()-1);
+                                }
+                                else
+                                {
+                                    qDebug() << "wtf is dis";
+                                }
+                            }
+                            qDebug() << tmpidxs.size();
+                            verticesIndices.push_back(tmpidxs[0]);
+                            verticesIndices.push_back(tmpidxs[1]);
+                            verticesIndices.push_back(tmpidxs[2]);
+
+                            verticesIndices.push_back(tmpidxs[0]);
+                            verticesIndices.push_back(tmpidxs[2]);
+                            verticesIndices.push_back(tmpidxs[3]);
                         }
                     }
                     else
@@ -185,7 +223,7 @@ ModelData  ObjLoader::load(const QString& fileName)
             }
             else
             {
-                for (int i = 0; i < vertices.size(); i+=3)
+                for (int i = 0; i < vertices.size()-3; i+=3)
                 {
                     normals.push_back(QVector3D(QVector3D::normal(vertices[i], vertices[i+1], vertices[i+2])));
                     normals.push_back(QVector3D(QVector3D::normal(vertices[i], vertices[i+1], vertices[i+2])));
@@ -197,17 +235,18 @@ ModelData  ObjLoader::load(const QString& fileName)
             Edge firstEdge;
             Edge secondEdge;
             Edge thirdEdge;
-            for (int i = 0; i < vertices.size(); i+=3)
+
+            for (int i = 0; i < vertices.size()-2; i+=3)
             {
-                firstEdge = Edge(vertices[i], vertices[i+1]);
+                firstEdge =  Edge(vertices[i], vertices[i+1]);
                 secondEdge = Edge(vertices[i+1], vertices[i+2]);
-                thirdEdge = Edge(vertices[i+2], vertices[i]);
+                thirdEdge =  Edge(vertices[i+2], vertices[i]);
 
                 edges.push_back(firstEdge);
                 edges.push_back(secondEdge);
                 edges.push_back(thirdEdge);
 
-                face = Face(firstEdge, secondEdge, thirdEdge);
+                face = Face(vertices[i], vertices[i+1], vertices[i+2]);
                 faces.push_back(face);
             }
             data.setNormals(normals);

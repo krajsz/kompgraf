@@ -1,26 +1,32 @@
 #ifndef FACE_H
 #define FACE_H
-#include "edge.h"
+#pragma once
+
 #include <tuple>
+#include <QList>
+#include <QVector3D>
 
 class Face
 {
 public:
     Face();
-    Face(const Edge& firstEdge, const Edge& secondEdge, const Edge& thirdEdge);
+    Face(const QVector3D& firstEdge, const QVector3D& secondEdge, const QVector3D& thirdEdge);
     Face& operator= (const Face& other);
 
+    const QList<QVector3D> &getVertices();
 
-    const Edge& getFirstEdge() const;
-    const Edge& getSecondEdge() const;
-    const Edge& getThirdEdge() const;
+    const QVector3D& getFirstVertex() const;
+    const QVector3D& getSecondVertex() const;
+    const QVector3D& getThirdVertex() const;
 
-    bool containsEdge(const Edge& edge) ;
+    void setSubdivided(bool subdivided);
+    bool containsVertex(const QVector3D& edge) ;
 private:
 
-    Edge firstEdge;
-    Edge secondEdge;
-    Edge thirdEdge;
+    bool subdivided = false;
+    QVector3D firstVertex;
+    QVector3D secondVertex;
+    QVector3D thirdVertex;
 };
 bool operator ==(const Face& f, const Face& f1);
 bool operator != (const Face& f, const Face& f1);
