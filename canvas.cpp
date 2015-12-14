@@ -22,7 +22,7 @@ Canvas::Canvas(QWidget *parent) : QOpenGLWidget( parent),
     //suzanne = new SceneObject(":/models/models/Porsche_911_GT2.obj");
 /*:/models/models/cs_assault.obj
  * */
-    suzanne = new SceneObject(":/models/models/icosa.obj");
+    suzanne = new SceneObject(":/models/models/cs_assault.obj");
 
     subdivisionCurve->calculate(controlPoints, 3/4.0);
 

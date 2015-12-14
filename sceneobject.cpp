@@ -43,8 +43,8 @@ void SceneObject::subdivision(const int &iterations)
 
     for (int iteration = 0; iteration < iterations; ++iteration)
     {
-        QList<Face> tmpFaces;
-        QListIterator<Face> it(datas.getFaces());
+        QList<Edge> tmpEdges;
+        QListIterator<Edge> it(datas.getEdges());
 
         while (it.hasNext())
         {

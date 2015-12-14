@@ -22,6 +22,29 @@ bool operator==(const Edge& e, const Edge& e1)
             == std::tie(e1.getFirstVertex() ,e1.getSecondVertex());
 }
 
+void Edge::addFace(const Face &face)
+{
+    faces.push_back(face);
+}
+
+bool Edge::inFace( Face& face)
+{
+    int ccount = 0;
+    for (int i = 0; i < face.getVertices().size(); ++i)
+    {
+        if ((face.getVertices()[i] == firstVertex) || (face.getVertices()[i] == secondVertex))
+        {
+            ccount++;
+        }
+        if (ccount == 2)
+        {
+           // qDebug() << "contains!";
+            break;
+        }
+    }
+    return ccount == 2;
+}
+
 const QVector3D& Edge::getFirstVertex() const
 {
     return this->firstVertex;

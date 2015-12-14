@@ -6,7 +6,7 @@ BSplineSurface::BSplineSurface(QObject *parent) :
     isShadedVisible(false),
     isControlNetVisible(false)
 {
-    wtvMatrix = Utils::translate(QVector3D(150, 150, -150)) * Utils::scaleXYMatrix( 180 , 180 ) *
+    wtvMatrix = Utils::translate(QVector3D(150, 150, -150)) * Utils::scaleXYMatrix( 200 , 200 ) *
             Utils::translate(QVector3D(1,1,1));
 
     currentRotation =     currentRotation = Utils::rotateYmat(xRotation ) *

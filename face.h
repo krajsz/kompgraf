@@ -27,6 +27,8 @@ private:
     QVector3D firstVertex;
     QVector3D secondVertex;
     QVector3D thirdVertex;
+
+    QList<QVector3D> vertices;
 };
 bool operator ==(const Face& f, const Face& f1);
 bool operator != (const Face& f, const Face& f1);

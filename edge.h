@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QVector3D>
+#include <QDebug>
 #include <tuple>
 #include "face.h"
 
@@ -22,9 +23,14 @@ public:
     const Face& getFirstFace() const;
     const Face& getSecondFace() const;
 
+    void addFace(const Face& face);
+    bool inFace( Face &face);
+
 private:
     QVector3D firstVertex;
     QVector3D secondVertex;
+
+    QList<Face> faces;
 
     Face firstFace;
     Face secondFace;

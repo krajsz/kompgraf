@@ -8,12 +8,21 @@ Face::Face(const QVector3D &v1, const QVector3D &v2, const QVector3D &v3): first
                                                                                   secondVertex(v2),
                                                                                   thirdVertex(v3)
 {
+    vertices.push_back(firstVertex);
+    vertices.push_back(secondVertex);
+    vertices.push_back(thirdVertex);
 }
 Face& Face::operator =(const Face& other)
 {
     firstVertex = other.firstVertex;
     secondVertex = other.secondVertex;
     thirdVertex = other.thirdVertex;
+
+    vertices.clear();
+    vertices.push_back(firstVertex);
+    vertices.push_back(secondVertex);
+    vertices.push_back(thirdVertex);
+
     return *this;
 }
 
@@ -35,7 +44,7 @@ bool operator !=(const Face& f, const Face& f1)
 
 const QList<QVector3D>& Face::getVertices()
 {
-    return  QList<QVector3D> () << firstVertex << secondVertex << thirdVertex;
+    return vertices;
 }
 
 const QVector3D& Face::getFirstVertex() const

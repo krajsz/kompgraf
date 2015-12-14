@@ -131,7 +131,7 @@ ModelData  ObjLoader::load(const QString& fileName)
                                 }
                                 else
                                 {
-                                    qDebug() << "wtf is dis";
+                                    qDebug() << "wtf is dis " << lineListList.size();
                                 }
                             }
                             qDebug() << tmpidxs.size();
@@ -201,10 +201,12 @@ ModelData  ObjLoader::load(const QString& fileName)
 
             QVector3D bbox ( maxX - minX, maxY - minY, maxZ - minZ);
 
+            float max = qMax(qMax(bbox.x(), bbox.y()), bbox.z());
+
             qDebug() <<"box: " << bbox;
             for (int i = 0; i < tmpVertices.size(); ++i)
             {
-                tmpVertices[i]/=bbox;
+                tmpVertices[i]/=max;
             }
 
             qDebug() << tmpVertices.size();
@@ -249,6 +251,19 @@ ModelData  ObjLoader::load(const QString& fileName)
                 face = Face(vertices[i], vertices[i+1], vertices[i+2]);
                 faces.push_back(face);
             }
+
+            /*for (int i = 0; i < edges.size(); ++i)
+            {
+                for (int j = 0; j < faces.size(); ++j)
+                {
+                    if (edges[i].inFace(faces[j]))
+                    {
+                     //   qDebug() << i << ". edge" << j << ". face";
+                        edges[i].addFace(faces[j]);
+                    }
+                }
+            }*/
+
             data.setNormals(normals);
             data.setNormalIndices(normalsIndices);
             data.setVertices(vertices);
