@@ -1,0 +1,23 @@
+#ifndef OBJECT_H
+#define OBJECT_H
+
+#include <QObject>
+
+class Object : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Object(const QString& fileName, QObject *parent = 0);
+Q_SIGNALS:
+
+private:
+    QString fileName;
+    QList<QVector3D> vertices;
+    QList<QVector3D> normals;
+    
+    QList<unsigned int> verticesIndices;
+    QList<unsigned int> normalsIndices;
+public Q_SLOTS:
+};
+
+#endif // OBJECT_H

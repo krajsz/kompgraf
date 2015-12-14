@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/shaders">
+        <file>flatshadedsurfacefragmentshader.frag</file>
+        <file>flatshadedsurfacevertexshader.vert</file>
+        <file>fragmentshader.fsh</file>
+        <file>geometryshader.gsh</file>
+        <file>vertexshader.vsh</file>
+        <file>phongshadedsurfacefragmentshader.frag</file>
+        <file>phongshadedsurfacevertexshader.vert</file>
+        <file>computeshader.cs</file>
+        <file>surfacenetfragmentshader.frag</file>
+        <file>gouraudshadedsurfacevertexshader.vert</file>
+        <file>gouraudshadedsurfacefragmentshader.frag</file>
+    </qresource>
+    <qresource prefix="/models">
+        <file>models/suzanne.obj</file>
+        <file>models/Building_dnt_V02.obj</file>
+        <file>models/M9.obj</file>
+        <file>models/cow-nonormals.obj</file>
+        <file>models/teapot.obj</file>
+        <file>models/teddy.obj</file>
+        <file>models/AK-47.obj</file>
+        <file>models/Butterfly1.obj</file>
+        <file>models/stalker_cs_rukzak_3.obj</file>
+        <file>models/Porsche_911_GT2.obj</file>
+        <file>models/beethoven.obj</file>
+        <file>models/bigguy.obj</file>
+        <file>models/cube.obj</file>
+        <file>models/cupid.obj</file>
+        <file>models/icosa.obj</file>
+        <file>models/monsterfrog.obj</file>
+        <file>models/torii.obj</file>
+        <file>models/venus.obj</file>
+    </qresource>
+</RCC>
