@@ -119,14 +119,14 @@ ModelData  ObjLoader::load(const QString& fileName)
                                 {
                                     normalsIndices.push_back(lineListList[2].toInt()-1);
                                     //verticesIndices.push_back(lineListList[0].toInt()-1);
-                                  //  qDebug() << "Pushing, v/vt/vn";
+                                    //  qDebug() << "Pushing, v/vt/vn";
 
                                     tmpidxs.push_back(lineListList[0].toInt()-1);
                                 }
                                 else if (lineListList.size() == 2)
                                 {
                                     //  verticesIndices.push_back(lineListList[0].toInt()-1);
-                                 //   qDebug() << "Pushing, v/vt";
+                                    //   qDebug() << "Pushing, v/vt";
                                     tmpidxs.push_back(lineListList[0].toInt()-1);
                                 }
                                 else
@@ -139,9 +139,13 @@ ModelData  ObjLoader::load(const QString& fileName)
                             verticesIndices.push_back(tmpidxs[1]);
                             verticesIndices.push_back(tmpidxs[2]);
 
-                            verticesIndices.push_back(tmpidxs[0]);
-                            verticesIndices.push_back(tmpidxs[2]);
-                            verticesIndices.push_back(tmpidxs[3]);
+                            if (verticesIndices.size() == 4)
+                            {
+
+                                verticesIndices.push_back(tmpidxs[3]);
+                                verticesIndices.push_back(tmpidxs[1]);
+                                verticesIndices.push_back(tmpidxs[2]);
+                            }
                         }
                     }
                     else
